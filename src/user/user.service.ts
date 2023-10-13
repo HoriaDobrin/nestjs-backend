@@ -1,6 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from './user.model';
-import { UserDto } from './user-signIn.dto';
+import { UserDto } from './user-dtos/user-credentials.dto';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './user-dtos/jwt-payload.interface';
 
 @Injectable()
 export class UserService {
@@ -10,13 +12,20 @@ export class UserService {
     password: 'pass',
   };
 
-  signIn(user: UserDto): void {
+  constructor(private jwtService: JwtService) {}
+
+  signIn(user: UserDto): { accessToken: string } {
     const { email, password } = user;
 
     if (email === this.admin.email && password === this.admin.password) {
-      console.log('success');
+      const payload: JwtPayload = { email };
+      console.log(payload);
+
+      const accessToken = this.jwtService.sign(payload);
+      console.log(accessToken);
+      return { accessToken };
     } else {
-      console.log('denied');
+      throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
     }
   }
 }

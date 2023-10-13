@@ -8,13 +8,15 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { GameService } from './game.service';
 import { Game } from './game.model';
-import { GameDto } from './game.dto';
+import { GameDto } from './game-dtos/game.dto';
 import { validateMinPrice } from './validators/min-price.validator';
+import { AuthGuard } from '@nestjs/passport';
 
 @UsePipes(new ValidationPipe())
 @Controller('game')
@@ -27,6 +29,7 @@ export class GameController {
   }
 
   @Post()
+  @UseGuards(AuthGuard())
   createGame(@Body() game: GameDto): Game {
     if (typeof game.price === 'string') {
       game.price = parseInt(game.price, 10);
@@ -42,6 +45,7 @@ export class GameController {
   }
 
   @Put('/:id')
+  @UseGuards(AuthGuard())
   updateGame(@Param('id') id: string, @Body() game: GameDto) {
     if (!validateMinPrice(game.price)) {
       throw new HttpException(
@@ -54,6 +58,7 @@ export class GameController {
   }
 
   @Delete('/:id')
+  @UseGuards(AuthGuard())
   deleteGame(@Param('id') id: string) {
     return this.gameService.deleteGame(id);
   }

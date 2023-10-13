@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Game } from './game.model';
-import { GameDto } from './game.dto';
+import { GameDto } from './game-dtos/game.dto';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()
@@ -11,8 +11,14 @@ export class GameService {
     return this.games;
   }
 
-  getGameById(id: string) {
-    return this.games.find((game) => game.id === id);
+  getGameById(id: string): Game {
+    const found = this.games.find((game) => game.id === id);
+
+    if (!found) {
+      throw new NotFoundException();
+    }
+
+    return found;
   }
 
   createGame(game: GameDto): Game {
