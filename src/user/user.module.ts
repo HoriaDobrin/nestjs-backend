@@ -11,7 +11,7 @@ import { JwtStrategy } from './jwt.strategy';
     JwtModule.register({
       secret: 'topSecretPasswordLetsgo', //should not be stored this way in the future
       signOptions: {
-        expiresIn: 3600, //expires in 24 hours
+        expiresIn: 3600, //expires in 1 hour
       },
     }),
   ],

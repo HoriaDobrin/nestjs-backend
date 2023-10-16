@@ -24,13 +24,13 @@ export class GameController {
   constructor(private gameService: GameService) {}
 
   @Get()
-  getAllGames(): Game[] {
+  getAllGames(): Promise<Game[]> {
     return this.gameService.getAllGames();
   }
 
   @Post()
   @UseGuards(AuthGuard())
-  createGame(@Body() game: GameDto): Game {
+  createGame(@Body() game: GameDto): Promise<Game> {
     if (typeof game.price === 'string') {
       game.price = parseInt(game.price, 10);
     }
@@ -46,7 +46,7 @@ export class GameController {
 
   @Put('/:id')
   @UseGuards(AuthGuard())
-  updateGame(@Param('id') id: string, @Body() game: GameDto) {
+  updateGame(@Param('id') id: string, @Body() game: GameDto): Promise<Game> {
     if (!validateMinPrice(game.price)) {
       throw new HttpException(
         'Price must be greater that 0',
@@ -59,7 +59,7 @@ export class GameController {
 
   @Delete('/:id')
   @UseGuards(AuthGuard())
-  deleteGame(@Param('id') id: string) {
+  deleteGame(@Param('id') id: string): Promise<void> {
     return this.gameService.deleteGame(id);
   }
 }

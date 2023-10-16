@@ -6,7 +6,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post('/login')
-  signIn(@Body() user: UserDto): { accessToken: string } {
+  async signIn(@Body() user: UserDto): Promise<{ accessToken: string }> {
     return this.userService.signIn(user);
   }
 }

@@ -3,6 +3,7 @@ import { User } from './user.model';
 import { UserDto } from './user-dtos/user-credentials.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './user-dtos/jwt-payload.interface';
+import { readDataFromFile } from 'src/data/readWriteData';
 
 @Injectable()
 export class UserService {
@@ -14,15 +15,18 @@ export class UserService {
 
   constructor(private jwtService: JwtService) {}
 
-  signIn(user: UserDto): { accessToken: string } {
+  async signIn(user: UserDto): Promise<{ accessToken: string }> {
     const { email, password } = user;
 
-    if (email === this.admin.email && password === this.admin.password) {
+    const usersFromFile = await readDataFromFile<User>('users');
+
+    const theAdmin = usersFromFile[0];
+
+    if (email === theAdmin.email && password === theAdmin.password) {
       const payload: JwtPayload = { email };
-      console.log(payload);
 
       const accessToken = this.jwtService.sign(payload);
-      console.log(accessToken);
+
       return { accessToken };
     } else {
       throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
