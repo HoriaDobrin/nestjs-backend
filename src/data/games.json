@@ -4,5 +4,17 @@
     "name": "Joc123",
     "genre": "Hello",
     "price": 1
+  },
+  {
+    "id": "610b4bfc-216b-42bd-8549-12f17f9c29af",
+    "name": "Joc12",
+    "genre": "Actiune",
+    "price": 15
+  },
+  {
+    "id": "76db0593-b19b-488a-b161-9124b8bd7573",
+    "name": "Joc12",
+    "genre": "Actiune",
+    "price": 15
   }
 ]
