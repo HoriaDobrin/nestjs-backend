@@ -28,6 +28,12 @@ export class GameController {
     return this.gameService.getAllGames();
   }
 
+  @UseGuards(AuthGuard())
+  @Get('export')
+  async exportGamesCSV() {
+    return this.gameService.exportGamesAsCSV();
+  }
+
   @Post()
   @UseGuards(AuthGuard())
   createGame(@Body() game: GameDto): Promise<Game> {

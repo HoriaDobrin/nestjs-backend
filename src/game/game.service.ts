@@ -3,6 +3,7 @@ import { Game } from './game.model';
 import { GameDto } from './game-dtos/game.dto';
 import { v4 as uuid } from 'uuid';
 import { readDataFromFile, writeDataToFile } from 'src/data/readWriteData';
+import { createObjectCsvWriter } from 'csv-writer';
 
 @Injectable()
 export class GameService {
@@ -12,6 +13,23 @@ export class GameService {
     const data = await readDataFromFile<Game>('games');
 
     return data;
+  }
+
+  async exportGamesAsCSV(): Promise<void> {
+    const games = await this.getAllGames(); // Obțineți lista de jocuri
+
+    const csvWriter = createObjectCsvWriter({
+      path: 'C:/Users/Horiacus/Desktop/Intern Project/InternshipProject-Backend/nestjs-backend/src/data/games.csv',
+      header: [
+        { id: 'id', title: 'ID' },
+        { id: 'name', title: 'Nume' },
+        { id: 'genre', title: 'Gen' },
+        { id: 'price', title: 'Preț' },
+      ],
+    });
+
+    await csvWriter.writeRecords(games);
+    // Întoarceți un răspuns sau faceți altă manipulare, de exemplu, returnați calea fișierului CSV creat
   }
 
   async getGameById(id: string): Promise<Game> {
