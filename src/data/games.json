@@ -1,26 +1,20 @@
 [
   {
-    "id": "34d11a7c-9dc4-4790-b185-37e92e7e7ade",
-    "name": "Joc21",
-    "genre": "Hellozz",
-    "price": 12
+    "id": "64aee630-4e7f-4b02-90ea-77605a84a8c1",
+    "name": "Joc123",
+    "genre": "Hello",
+    "price": 1
   },
   {
-    "id": "99af446c-0587-456a-abdc-395534651241",
-    "name": "Joc33",
-    "genre": "Hellozz",
-    "price": 12
-  },
-  {
-    "id": "5c0d0dae-a889-48eb-8b7e-708ee59ab3fa",
-    "name": "Joc411",
-    "genre": "Hazzzz",
+    "id": "610b4bfc-216b-42bd-8549-12f17f9c29af",
+    "name": "Joc12",
+    "genre": "Actiune",
     "price": 15
   },
   {
-    "id": "3c08f888-0e61-44a4-8932-89f47b9c5480",
-    "name": "Joc1337",
-    "genre": "Genzzzzsadasd",
-    "price": 3
+    "id": "76db0593-b19b-488a-b161-9124b8bd7573",
+    "name": "Joc12",
+    "genre": "Actiune",
+    "price": 15
   }
 ]
