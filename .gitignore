@@ -36,3 +36,4 @@ lerna-debug.log*
 src/data/games.json
 src/data/users.json
 
+src/data/games.csv

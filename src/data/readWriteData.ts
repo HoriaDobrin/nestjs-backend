@@ -1,6 +1,7 @@
 import * as fs from 'fs/promises';
 
-const filePath = 'C:/Users/Ponta/Desktop/InternProject/nestjs-backend/src/data';
+const filePath =
+  'C:/Users/Horiacus/Desktop/Intern Project/InternshipProject-Backend/nestjs-backend/src/data';
 
 export async function readDataFromFile<T>(fileName: string): Promise<T[]> {
   try {
