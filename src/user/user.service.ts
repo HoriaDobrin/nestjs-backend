@@ -51,4 +51,22 @@ export class UserService {
       throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
     }
   }
+
+  async checkToken(tokenToVerify: string): Promise<string> {
+    const usersFromFile = await readDataFromFile<User>('users');
+
+    const theAdmin = usersFromFile[0];
+
+    const email = theAdmin.email;
+
+    const payload: JwtPayload = { email };
+
+    const accessToken = this.jwtService.sign(payload);
+
+    if (accessToken === tokenToVerify) {
+      return 'bibe ba';
+    } else {
+      return ' ayaye';
+    }
+  }
 }

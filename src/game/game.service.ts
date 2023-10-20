@@ -19,7 +19,7 @@ export class GameService {
     const games = await this.getAllGames(); // Obțineți lista de jocuri
 
     const csvWriter = createObjectCsvWriter({
-      path: 'C:/Users/Horiacus/Desktop/Intern Project/InternshipProject-Backend/nestjs-backend/src/data/games.csv',
+      path: 'C:/Users/Ponta/Desktop/InternProject/nestjs-backend/src/data/games.csv',
       header: [
         { id: 'id', title: 'ID' },
         { id: 'name', title: 'Nume' },
@@ -29,6 +29,21 @@ export class GameService {
     });
 
     await csvWriter.writeRecords(games);
+    // Întoarceți un răspuns sau faceți altă manipulare, de exemplu, returnați calea fișierului CSV creat
+  }
+
+  async exportFilteredGamesAsCSV(currentGames: GameDto[]): Promise<void> {
+    const csvWriter = createObjectCsvWriter({
+      path: 'C:/Users/Ponta/Desktop/InternProject/nestjs-backend/src/data/filteredGames.csv',
+      header: [
+        { id: 'id', title: 'ID' },
+        { id: 'name', title: 'Nume' },
+        { id: 'genre', title: 'Gen' },
+        { id: 'price', title: 'Preț' },
+      ],
+    });
+
+    await csvWriter.writeRecords(currentGames);
     // Întoarceți un răspuns sau faceți altă manipulare, de exemplu, returnați calea fișierului CSV creat
   }
 

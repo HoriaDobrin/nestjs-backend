@@ -34,6 +34,12 @@ export class GameController {
     return this.gameService.exportGamesAsCSV();
   }
 
+  @UseGuards(AuthGuard())
+  @Post('export-filtered')
+  async exportFilteredGamesCSV(@Body() games: GameDto[]) {
+    return this.gameService.exportFilteredGamesAsCSV(games);
+  }
+
   @Post()
   @UseGuards(AuthGuard())
   createGame(@Body() game: GameDto): Promise<Game> {
