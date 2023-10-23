@@ -1,13 +1,13 @@
 [
   {
     "id": "610b4bfc-216b-42bd-8549-12f17f9c29af",
-    "name": "Joc1",
+    "name": "Joc1337",
     "genre": "Actiune",
     "price": 15
   },
   {
     "id": "a9e1e538-2c9e-4b1a-9ec9-483f87d5044f",
-    "name": "Joc2",
+    "name": "Joc59",
     "genre": "Puzzle",
     "price": 20
   },
@@ -118,5 +118,11 @@
     "name": "Joc20",
     "genre": "RPG",
     "price": 35
+  },
+  {
+    "id": "b639777b-4869-4925-ab9c-f913c10a11c8",
+    "name": "hello123",
+    "genre": "Aventura",
+    "price": 5
   }
 ]

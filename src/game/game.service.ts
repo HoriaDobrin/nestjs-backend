@@ -7,8 +7,6 @@ import { createObjectCsvWriter } from 'csv-writer';
 
 @Injectable()
 export class GameService {
-  private games: Game[] = [];
-
   async getAllGames(): Promise<Game[]> {
     const data = await readDataFromFile<Game>('games');
 
@@ -16,10 +14,10 @@ export class GameService {
   }
 
   async exportGamesAsCSV(): Promise<void> {
-    const games = await this.getAllGames(); // Obțineți lista de jocuri
+    const games = await this.getAllGames();
 
     const csvWriter = createObjectCsvWriter({
-      path: 'C:/Users/Ponta/Desktop/InternProject/nestjs-backend/src/data/games.csv',
+      path: 'C:/Users/Horiacus/Desktop/Intern Project/InternshipProject-Backend/nestjs-backend/src/games.csv',
       header: [
         { id: 'id', title: 'ID' },
         { id: 'name', title: 'Nume' },
@@ -29,12 +27,11 @@ export class GameService {
     });
 
     await csvWriter.writeRecords(games);
-    // Întoarceți un răspuns sau faceți altă manipulare, de exemplu, returnați calea fișierului CSV creat
   }
 
   async exportFilteredGamesAsCSV(currentGames: GameDto[]): Promise<void> {
     const csvWriter = createObjectCsvWriter({
-      path: 'C:/Users/Ponta/Desktop/InternProject/nestjs-backend/src/data/filteredGames.csv',
+      path: 'C:/Users/Horiacus/Desktop/Intern Project/InternshipProject-Backend/nestjs-backend/src/games.csv',
       header: [
         { id: 'id', title: 'ID' },
         { id: 'name', title: 'Nume' },
@@ -44,7 +41,6 @@ export class GameService {
     });
 
     await csvWriter.writeRecords(currentGames);
-    // Întoarceți un răspuns sau faceți altă manipulare, de exemplu, returnați calea fișierului CSV creat
   }
 
   async getGameById(id: string): Promise<Game> {
@@ -71,12 +67,12 @@ export class GameService {
 
     await data.push(newGame);
 
-    writeDataToFile('games', data);
+    writeDataToFile<Game>('games', data);
 
     return newGame;
   }
 
-  async updateGame(id, game: GameDto): Promise<Game> {
+  async updateGame(id: string, game: GameDto): Promise<Game> {
     const { name, genre, price } = game;
 
     const data = await readDataFromFile<Game>('games');
@@ -97,7 +93,7 @@ export class GameService {
 
       data[index] = updateGame;
 
-      writeDataToFile('games', data);
+      writeDataToFile<Game>('games', data);
 
       return updateGame as Game;
     } else {
@@ -111,7 +107,7 @@ export class GameService {
 
     if (deleteGameIndex != -1) {
       data.splice(deleteGameIndex, 1);
-      writeDataToFile('games', data);
+      writeDataToFile<Game>('games', data);
     } else {
       throw new NotFoundException('Id not found');
     }

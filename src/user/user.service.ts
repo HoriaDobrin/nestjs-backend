@@ -15,12 +15,11 @@ export class UserService {
   };
 
   constructor(private jwtService: JwtService) {
-    //Thought to delete the file before generating a user with a hashed + salted password
-    writeDataToFile('users', []);
+    writeDataToFile<User>('users', []);
     UserService.createAdmin();
   }
 
-  //Purpose of creating a more secure password and storing it in the file
+  //Creating a more secure password and storing it in the file
   private static async createAdmin() {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(this.admin.password, salt);
@@ -29,7 +28,7 @@ export class UserService {
     const data: User[] = await readDataFromFile('users');
     data.push(this.admin);
 
-    writeDataToFile('users', data);
+    writeDataToFile<User>('users', data);
   }
 
   async signIn(user: UserDto): Promise<{ accessToken: string }> {
@@ -52,21 +51,12 @@ export class UserService {
     }
   }
 
-  async checkToken(tokenToVerify: string): Promise<string> {
-    const usersFromFile = await readDataFromFile<User>('users');
-
-    const theAdmin = usersFromFile[0];
-
-    const email = theAdmin.email;
-
-    const payload: JwtPayload = { email };
-
-    const accessToken = this.jwtService.sign(payload);
-
-    if (accessToken === tokenToVerify) {
-      return 'bibe ba';
-    } else {
-      return ' ayaye';
+  async checkToken(tokenToVerify: { accessToken: string }): Promise<boolean> {
+    try {
+      await this.jwtService.verify(tokenToVerify.accessToken);
+      return true;
+    } catch (error) {
+      return false;
     }
   }
 }

@@ -28,15 +28,20 @@ export class GameController {
     return this.gameService.getAllGames();
   }
 
+  @Get('/:id')
+  getGameById(@Param('id') id: string): Promise<Game> {
+    return this.gameService.getGameById(id);
+  }
+
   @UseGuards(AuthGuard())
   @Get('export')
-  async exportGamesCSV() {
+  exportGamesCSV() {
     return this.gameService.exportGamesAsCSV();
   }
 
   @UseGuards(AuthGuard())
   @Post('export-filtered')
-  async exportFilteredGamesCSV(@Body() games: GameDto[]) {
+  exportFilteredGamesCSV(@Body() games: GameDto[]) {
     return this.gameService.exportFilteredGamesAsCSV(games);
   }
 

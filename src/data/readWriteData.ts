@@ -14,9 +14,9 @@ export async function readDataFromFile<T>(fileName: string): Promise<T[]> {
   }
 }
 
-export async function writeDataToFile(
+export async function writeDataToFile<T>(
   fileName: string,
-  data: any[],
+  data: T[],
 ): Promise<void> {
   try {
     await fs.writeFile(
